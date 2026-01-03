@@ -21,6 +21,8 @@ const isLocal = process.env.NODE_ENV === "local";
 const SUPABASE_URL = process.env.SUPABASE_URL || "";
 const SUPABASE_KEY = process.env.SUPABASE_KEY || "";
 const SUPABASE_BUCKET = process.env.SUPABASE_BUCKET || "";
+const SUPABASE_IMAGES_BUCKET = process.env.SUPABASE_IMAGES_BUCKET || "Images";
+const SUPABASE_THUMBNAILS_BUCKET = process.env.SUPABASE_THUMBNAILS_BUCKET || "Thumbnail";
 
 // Only create Supabase client if not in local mode
 const supabase = !isLocal && SUPABASE_URL && SUPABASE_KEY 

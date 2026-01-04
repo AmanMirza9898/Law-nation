@@ -13,6 +13,7 @@ import {
   setupPasswordSchema,
 } from "./validators/auth.validator.js";
 import { UnauthorizedError } from "@/utils/http-errors.util.js";
+import { log } from "console";
 
 // --- SIGNUP HANDLER (Naya Registration) ---
 export async function signupHandler(
@@ -135,7 +136,8 @@ export async function sendOtpHandler(
     const data = sendOtpSchema.parse(req.body);
     const result = await AuthService.sendVerificationOtp(data.email);
     return res.json(result);
-  } catch (err) {
+  } catch (err) { 
+    console.log(err)
     if (err instanceof z.ZodError) {
       return res.status(400).json({ error: z.treeifyError(err) });
     }

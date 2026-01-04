@@ -244,14 +244,15 @@ async function sendVerificationOtp(email: string) {
   const existingUser = await prisma.user.findUnique({
     where: { email },
   });
-
+console.log("after exesting user")
   if (existingUser) {
     throw new BadRequestError("User with this email already exists");
   }
 
+
   // Generate 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
+console.log("after otp")
   // Set expiration to 10 minutes from now
   const ttl = new Date();
   ttl.setMinutes(ttl.getMinutes() + 10);
@@ -265,6 +266,8 @@ async function sendVerificationOtp(email: string) {
     },
   });
 
+  console.log("after prisma delete")
+
   // Create new verification record
   await prisma.emailVerification.create({
     data: {
@@ -276,7 +279,7 @@ async function sendVerificationOtp(email: string) {
       metadata: {},
     },
   });
-
+console.log("after prisma create")
   // Send OTP via email
   await sendOtpEmail(email, otp);
 

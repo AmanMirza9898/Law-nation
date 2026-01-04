@@ -38,6 +38,7 @@ export async function sendEmail(options: EmailOptions) {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error("Missing EMAIL_USER or EMAIL_PASS in .env file");
     }
+    console.log("user and password exist SMTP")
     await transporter.sendMail({
       from: process.env.SMTP_FROM || `"Law Nation" <${process.env.EMAIL_USER}>`,
       to: options.to,
@@ -55,8 +56,11 @@ export async function sendEmail(options: EmailOptions) {
 
 export async function sendOtpEmail(userEmail: string, otp: string) {
   const { subject, html } = generateOtpEmailHtml({ otp });
+  console.log("generated otp email")
   return sendEmail({ to: userEmail, subject, html });
 }
+
+
 
 export async function sendAuthNotification(userEmail: string, userName: string) {
   const { subject, html } = generateWelcomeEmailHtml({

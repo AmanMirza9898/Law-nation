@@ -51,7 +51,12 @@ export default function JoinUsPage() {
     setIsLoading(true)
     try {
       // Backend Send OTP Endpoint (Port 4000)
-      const response = await fetch("http://localhost:4000/api/auth/send-otp", {
+      // const response = await fetch("http://localhost:4000/api/auth/send-otp", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email: formData.email }),
+
+      const response = await fetch("https://law-nation-9.onrender.com/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email }),
@@ -81,7 +86,12 @@ export default function JoinUsPage() {
     setIsLoading(true)
     try {
       // 1. Verify OTP Call
-      const verifyResponse = await fetch("http://localhost:4000/api/auth/verify-otp", {
+      // const verifyResponse = await fetch("http://localhost:4000/api/auth/verify-otp", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email: formData.email, otp: otp }),
+
+      const verifyResponse = await fetch("https://law-nation-9.onrender.com/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email, otp: otp }),
@@ -103,7 +113,13 @@ export default function JoinUsPage() {
         phone: formData.phone
       }
       
-      const signupResponse = await fetch("http://localhost:4000/api/auth/signup", {
+      // const signupResponse = await fetch("http://localhost:4000/api/auth/signup", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(payload),
+      // })
+
+      const signupResponse = await fetch("https://law-nation-9.onrender.com/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

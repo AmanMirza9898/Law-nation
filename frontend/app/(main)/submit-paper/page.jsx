@@ -202,7 +202,8 @@ export default function SubmitPaperPage() {
       // Token Check
       const token = localStorage.getItem("authToken");
       const API_URL =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/articles";
+        // process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/articles";
+         process.env.NEXT_PUBLIC_API_URL || "https://law-nation-9.onrender.com/api/articles";
 
       // ✅ CHANGE 3: URL '/submit-with-images' hona chahiye
       const response = await fetch(`${API_URL}/submit-with-images`, {
@@ -259,7 +260,8 @@ export default function SubmitPaperPage() {
 
     try {
       const API_URL =
-        process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/articles";
+        // process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/articles";
+        process.env.NEXT_PUBLIC_API_URL || "https://law-nation-9.onrender.com/api/articles";
 
       const res = await fetch(`${API_URL}/verify-code`, {
         method: "POST",

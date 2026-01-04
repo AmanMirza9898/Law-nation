@@ -61,7 +61,8 @@ export default function Adminlogin() {
     setIsLoading(true)
 
     try {
-      const API_URL = "http://localhost:4000/api"
+      // const API_URL = "http://localhost:4000/api"
+      const API_URL = "https://law-nation-9.onrender.com/api"
       
       const response = await fetch(`${API_URL}/auth/admin-login`, {
         method: "POST",

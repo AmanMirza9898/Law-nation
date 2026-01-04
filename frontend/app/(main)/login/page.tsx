@@ -34,11 +34,18 @@ export default function Login() {
     setIsLoading(true)
 
     try {
-      const response = await fetch("http://localhost:4000/api/auth/login", {
+      // const response = await fetch("http://localhost:4000/api/auth/login", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // })
+
+      const response = await fetch("https://law-nation-9.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
+
 
       const data = await response.json()
       

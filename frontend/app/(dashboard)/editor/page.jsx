@@ -150,7 +150,8 @@ export default function EditorDashboard() {
   const efficiency =
     totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
-  const API_BASE_URL = "http://localhost:4000";
+  // const API_BASE_URL = "http://localhost:4000";
+   const API_BASE_URL = "https://law-nation-9.onrender.com";
 
   const [profile, setProfile] = useState({
     id: "",

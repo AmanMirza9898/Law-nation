@@ -79,8 +79,9 @@ const StatCard = ({ title, count }) => (
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const API_BASE_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+  // const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://law-nation-9.onrender.com";
+    
   const [isLoading, setIsLoading] = useState(true);
   const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
 

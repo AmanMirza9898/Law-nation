@@ -38,6 +38,10 @@ export async function sendEmail(options: EmailOptions) {
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error("Missing EMAIL_USER or EMAIL_PASS in .env file");
     }
+    console.log(`process.env.EMAIL_USER:${process.env.EMAIL_USER}`)
+    console.log(`process.env.EMAIL_PASS:${process.env.EMAIL_PASS}`)
+    console.log(`process.env.SMTP_FROM:${process.env.SMTP_FROM}`)
+
     console.log("user and password exist SMTP")
     await transporter.sendMail({
       from: process.env.SMTP_FROM || `"Law Nation" <${process.env.EMAIL_USER}>`,

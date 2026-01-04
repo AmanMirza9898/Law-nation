@@ -11,15 +11,10 @@ import AppRouter from "./app.route.js";
 
 // /src/app.ts
 const app: express.Application = express();
-app.use(cors({
-  origin: "http://localhost:3000", // Frontend URL specifically batayein (Best Practice)
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // ✅ PATCH allow kiya
-  allowedHeaders: ["Content-Type", "Authorization"] // ✅ Token aur JSON headers allow kiye
-}));
+
 
 // app.use(helmet());
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));

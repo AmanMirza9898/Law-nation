@@ -456,7 +456,7 @@
 // }
 
 
-import * as brevo from "@getbrevo/brevo";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 import { generateOtpEmailHtml } from "@/templates/email/auth/otp.template.js";
 import { generateWelcomeEmailHtml } from "@/templates/email/auth/welcome.template.js";
@@ -480,11 +480,7 @@ interface EmailOptions {
   html: string;
 }
 
-const apiInstance = new brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(
-  brevo.TransactionalEmailsApiApiKeys.apiKey,
-  process.env.BREVO_API_KEY || ""
-);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Main sendEmail function
 export async function sendEmail(options: EmailOptions) {
@@ -492,24 +488,33 @@ export async function sendEmail(options: EmailOptions) {
     console.log(`📧 [Email] Attempting to send email to: ${options.to}`);
     console.log(`📧 [Email] Subject: ${options.subject}`);
     
-    if (!process.env.BREVO_API_KEY) {
-      console.error("❌ [Email] BREVO_API_KEY is missing in .env file");
-      throw new Error("Missing BREVO_API_KEY in .env file");
+    if (!process.env.RESEND_API_KEY) {
+      console.error("❌ [Email] RESEND_API_KEY is missing in .env file");
+      throw new Error("Missing RESEND_API_KEY in .env file");
     }
 
-    const fromAddress = process.env.SMTP_FROM || "Law Nation <9f4ea2001@smtp-brevo.com>";
+    const fromAddress = process.env.SMTP_FROM || "Law Nation <onboarding@resend.dev>";
     console.log(`📧 [Email] From address: ${fromAddress}`);
     
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.sender = { email: fromAddress.match(/<(.+)>/)?.[1] || fromAddress, name: "Law Nation" };
-    sendSmtpEmail.to = [{ email: options.to }];
-    sendSmtpEmail.subject = options.subject;
-    sendSmtpEmail.htmlContent = options.html;
+    const { data, error } = await resend.emails.send({
+      from: fromAddress,
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+    });
 
-    const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
+    if (error) {
+      console.error("❌ [Email] Resend API error:", {
+        message: error.message,
+        name: error.name,
+        statusCode: (error as any).statusCode,
+        details: error
+      });
+      throw error;
+    }
 
     console.log(`✅ [Email] Successfully sent to ${options.to}`);
-    console.log(`📧 [Email] Brevo message ID: ${data.body.messageId}`);
+    console.log(`📧 [Email] Resend email ID: ${data?.id}`);
     return data;
   } catch (error) {
     console.error("❌ [Email] Failed to send email:", {
